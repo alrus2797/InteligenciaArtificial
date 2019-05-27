@@ -74,7 +74,3 @@ names = {-1:'Setosa',1:'Versicolor'}
 mat = make_confussion_matrix(verif_target, verif_res, title = 'SVM', names =  names)
 plt.show()
 
-
-
-
-
