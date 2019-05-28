@@ -68,22 +68,33 @@ class MLP:
 
 		output_net = self.hidden_output @ self.output_layer
 		self.obtained_result = self.activator(output_net)
-		print (self.obtained_result.shape, self.hidden_output.shape)
+		#print (self.obtained_result.shape, self.hidden_output.shape)
 
 	def backward(self):
 		first_block_chain	= self.obtained_result - self.train_targets
-		second_block_chain	= np.sum(self.obtained_result * (1 - self.obtained_result), axis = 1)[None].T # To make a dot product
+		second_block_chain	= self.obtained_result * (1 - self.obtained_result) # To make a dot product
 		third_block_chain	= self.hidden_output
 
 		delta	= first_block_chain * second_block_chain	
+		self.delta = delta
 		chain	= (delta.T @ self.hidden_output).T	#Chain Rule derivative result
 
-		print("old\n", self.output_layer)
-		self.output_layer += self.alpha * (chain)
-		print("new\n", self.output_layer)
-		
+		#print("old\n", self.output_layer)
+		self.output_layer -= self.alpha * (chain)
+		#print("new\n", self.output_layer)
 
+		#second_part = (delta @  self.output_layer.T).T @  (self.hidden_output * (1 - self.hidden_output) * self.train_features[:,1:])
+		second_part = ((delta * ((self.hidden_output * (1 - self.hidden_output)) @ self.output_layer)).T @ self.train_features).T
+		self.hidden_layer -= self.alpha * second_part
+	def get_error(self):
+		return ((self.obtained_result - self.train_targets)**2)/2
 
+	def fit(self, iterations):
+		for i in range(iterations):
+			self.forward()
+			self.backward()
+			#if i %1000 ==0 : print(self.get_error())
+		print (self.hidden_layer, self.output_layer)
 
 
 classes = {
@@ -93,7 +104,8 @@ classes = {
 }
 mlp = MLP('shuffled_iris.data', classes, 3, 3, 0.1,20)
 
-b = mlp.activator(np.array([1. , 5. , 3. , 1.6, 0.2]))
-b = np.insert(b, 0, 1, axis=0)
-mlp.forward()
-mlp.backward()
+mlp.fit(100000)
+# b = mlp.activator(np.array([1. , 5. , 3. , 1.6, 0.2]))
+# b = np.insert(b, 0, 1, axis=0)
+# mlp.forward()
+# mlp.backward()
