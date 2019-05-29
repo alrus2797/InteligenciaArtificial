@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 
+from utils import make_confussion_matrix
+
 def construct_class_vector(id, n):
 	a = np.zeros(n)
 	a[int(id)] = 1
@@ -45,9 +47,10 @@ class MLP:
 		test_targets   = test[:,-1]
 
 		#Convert classes to vectors
+		self.test_targets_as_ints	= test_targets.astype('int64')
 
-		self.train_targets = construct_target_vectors(train_targets, n_classes)
-		self.test_targets = construct_target_vectors(test_targets, n_classes)
+		self.train_targets			= construct_target_vectors(train_targets, n_classes)
+		self.test_targets			= construct_target_vectors(test_targets, n_classes)
 		
 
 		self.features_size  = len(self.train_features[0])
@@ -94,7 +97,46 @@ class MLP:
 			self.forward()
 			self.backward()
 			#if i %1000 ==0 : print(self.get_error())
-		print (self.hidden_layer, self.output_layer)
+		#print (self.hidden_layer, '\n' ,self.output_layer)
+
+	def evaluate(self, input_features):
+		#print("in",input_features)
+		hidden_net = input_features @ self.hidden_layer
+		hidden_output = self.activator(hidden_net)
+		hidden_output = np.insert(hidden_output, 0, 1, axis = 1)
+		output_net = hidden_output @ self.output_layer
+		obtained_result = self.activator(output_net)
+		# print(obtained_result)
+		return obtained_result
+
+	def test(self):
+		evaluation	= self.evaluate(self.test_features)
+		maximums	= np.amax(evaluation,axis=1)[None].T	#Get max values for each row and cast as (n,1) matrix
+		indexes		= np.where(evaluation == maximums)[1]
+
+		self.indexes	= indexes
+		diff	= indexes == self.test_targets_as_ints
+		success	= diff.sum()	#Count Trues
+		failed	= len(diff) - success
+		
+		print("success:\t", success)
+		print("failed: \t", failed)
+		#print(selfle.indexes)
+
+	def make_confussion_matrix(self, save=True, names = {}, title = 'Confussion Matrix', filename='temp'):
+		if hasattr(self, 'indexes'):
+			#fig = plt.gcf()
+			plt.rcParams["figure.figsize"] = (7,7)
+			make_confussion_matrix(self.test_targets_as_ints, self.indexes, title = title, names = names)
+			if save:
+				plt.savefig('Images/'+filename+'.png',dpi=300)
+				#plt.close(fig)
+			plt.show()
+		else:
+			print('Not indexes defined. Run fit() function first')
+
+
+
 
 
 classes = {
@@ -104,8 +146,7 @@ classes = {
 }
 mlp = MLP('shuffled_iris.data', classes, 3, 3, 0.1,20)
 
+np.set_printoptions(precision=5, suppress=True)
 mlp.fit(100000)
-# b = mlp.activator(np.array([1. , 5. , 3. , 1.6, 0.2]))
-# b = np.insert(b, 0, 1, axis=0)
-# mlp.forward()
-# mlp.backward()
+mlp.test()
+mlp.make_confussion_matrix(names=classes, title='', filename='test')
