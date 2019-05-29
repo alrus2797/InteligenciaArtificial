@@ -131,7 +131,7 @@ class MLP:
 			if save:
 				plt.savefig('Images/'+filename+'.png',dpi=300)
 				#plt.close(fig)
-			plt.show()
+			#plt.show()
 		else:
 			print('Not indexes defined. Run fit() function first')
 
@@ -144,9 +144,14 @@ classes = {
 	1: 'Iris-versicolor',
 	2: 'Iris-virginica',
 }
-mlp = MLP('shuffled_iris.data', classes, 3, 3, 0.1,20)
 
-np.set_printoptions(precision=5, suppress=True)
-mlp.fit(100000)
-mlp.test()
-mlp.make_confussion_matrix(names=classes, title='', filename='test')
+n_neurons	= [4,6,8,10,12]
+alphas		= [0.01,0.04,0.07,0.105]
+
+for neuron in n_neurons:
+	for alpha in alphas:
+		mlp = MLP('shuffled_iris.data', classes, 3, 3, 0.1,20)
+		np.set_printoptions(precision=5, suppress=True)
+		mlp.fit(100000)
+		mlp.test()
+		mlp.make_confussion_matrix(names=classes, title='', filename='test_'+str(neuron)+'_'+str(alpha))
