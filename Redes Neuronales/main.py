@@ -129,7 +129,7 @@ class MLP:
 			plt.rcParams["figure.figsize"] = (7,7)
 			make_confussion_matrix(self.test_targets_as_ints, self.indexes, title = title, names = names)
 			if save:
-				plt.savefig('Images/'+filename+'.png',dpi=300)
+				plt.savefig('Images2/'+filename+'.png',dpi=300)
 				#plt.close(fig)
 			#plt.show()
 		else:
@@ -150,8 +150,10 @@ alphas		= [0.01,0.04,0.07,0.105]
 
 for neuron in n_neurons:
 	for alpha in alphas:
-		mlp = MLP('shuffled_iris.data', classes, 3, 3, 0.1,20)
+		mlp = MLP('shuffled_iris.data', classes, 3, 3, 0.1,30)
 		np.set_printoptions(precision=5, suppress=True)
 		mlp.fit(100000)
+		print('-------------------------')
+		print("Test - neurons:",neuron,"alpha:", alpha )
 		mlp.test()
 		mlp.make_confussion_matrix(names=classes, title='', filename='test_'+str(neuron)+'_'+str(alpha))
