@@ -123,17 +123,18 @@ class MLP:
 		print("failed: \t", failed)
 		#print(selfle.indexes)
 
-	def make_confussion_matrix(self, save=True, names = {}, title = 'Confussion Matrix', filename='temp'):
+	def make_confussion_matrix(self, save=True, names = {}, title = 'Confussion Matrix', filename='temp', folder='Images'):
 		if hasattr(self, 'indexes'):
 			#fig = plt.gcf()
 			plt.rcParams["figure.figsize"] = (7,7)
-			make_confussion_matrix(self.test_targets_as_ints, self.indexes, title = title, names = names)
+			cf_matrix	= make_confussion_matrix(self.test_targets_as_ints, self.indexes, title = title, names = names)
 			if save:
-				plt.savefig('Images2/'+filename+'.png',dpi=300)
+				plt.savefig(folder+'/'+filename+'.png',dpi=300)
 				#plt.close(fig)
 			#plt.show()
 		else:
 			print('Not indexes defined. Run fit() function first')
+		return cf_matrix
 
 
 
@@ -146,7 +147,8 @@ classes = {
 }
 
 n_neurons	= [4,6,8,10,12]
-alphas		= [0.01,0.04,0.07,0.105]
+alphas		= [0.01,0.04,0.07,0.1,0.5]
+
 
 for neuron in n_neurons:
 	for alpha in alphas:
@@ -156,4 +158,5 @@ for neuron in n_neurons:
 		print('-------------------------')
 		print("Test - neurons:",neuron,"alpha:", alpha )
 		mlp.test()
-		mlp.make_confussion_matrix(names=classes, title='', filename='test_'+str(neuron)+'_'+str(alpha))
+		cf_matrix	= mlp.make_confussion_matrix(names=classes, title='', filename='test_'+str(neuron)+'_'+str(alpha), folder='Images')
+		print("Score:\t\t", np.trace(cf_matrix))

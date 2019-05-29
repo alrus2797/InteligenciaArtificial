@@ -1,0 +1,125 @@
+-------------------------
+Test - neurons: 4 alpha: 0.01
+success:	 35
+failed: 	 10
+Score:  0.7777777777777777
+-------------------------
+Test - neurons: 4 alpha: 0.04
+success:	 32
+failed: 	 13
+Score:  0.711111111111111
+-------------------------
+Test - neurons: 4 alpha: 0.07
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 4 alpha: 0.1
+success:	 35
+failed: 	 10
+Score:  0.7777777777777777
+-------------------------
+Test - neurons: 4 alpha: 0.5
+success:	 32
+failed: 	 13
+Score:  0.711111111111111
+-------------------------
+Test - neurons: 6 alpha: 0.01
+success:	 35
+failed: 	 10
+Score:  0.7777777777777777
+-------------------------
+Test - neurons: 6 alpha: 0.04
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 6 alpha: 0.07
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 6 alpha: 0.1
+success:	 14
+failed: 	 31
+Score:  0.3111111111111111
+-------------------------
+Test - neurons: 6 alpha: 0.5
+success:	 32
+failed: 	 13
+Score:  0.711111111111111
+-------------------------
+Test - neurons: 8 alpha: 0.01
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 8 alpha: 0.04
+success:	 44
+failed: 	 1
+Score:  0.9777777777777779
+-------------------------
+Test - neurons: 8 alpha: 0.07
+success:	 34
+failed: 	 11
+Score:  0.7555555555555555
+-------------------------
+Test - neurons: 8 alpha: 0.1
+success:	 43
+failed: 	 2
+Score:  0.9555555555555556
+-------------------------
+Test - neurons: 8 alpha: 0.5
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 10 alpha: 0.01
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 10 alpha: 0.04
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 10 alpha: 0.07
+success:	 35
+failed: 	 10
+Score:  0.7777777777777777
+-------------------------
+Test - neurons: 10 alpha: 0.1
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 10 alpha: 0.5
+success:	 29
+failed: 	 16
+Score:  0.6666666666666667
+-------------------------
+Test - neurons: 12 alpha: 0.01
+success:	 34
+failed: 	 11
+Score:  0.7555555555555555
+-------------------------
+Test - neurons: 12 alpha: 0.04
+success:	 36
+failed: 	 9
+Score:  0.8
+-------------------------
+Test - neurons: 12 alpha: 0.07
+success:	 35
+failed: 	 10
+Score:  0.7777777777777777
+-------------------------
+Test - neurons: 12 alpha: 0.1
+success:	 34
+failed: 	 11
+Score:  0.7555555555555555
+-------------------------
+Test - neurons: 12 alpha: 0.5
+success:	 35
+failed: 	 10
+Score:  0.7777777777777777
